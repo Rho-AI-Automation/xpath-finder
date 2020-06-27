@@ -1,5 +1,35 @@
 /* globals chrome */
+
+// var btn = document.createElement("BUTTON");   
+// btn.innerHTML = "CLICK ME";                   
+// btn.style.position = "absolute";
+// btn.style.top='100px'
+// btn.style.right='100px'
+// btn.addEventListener("click",d2);
+
+// document.body.appendChild(btn);               
+
+
+// function d2(){
+//   alert('he')
+// }
+
+function download(filename, text) {
+  var a = window.document.createElement('a');
+  a.position='absloute'
+  var url = window.URL.createObjectURL(new Blob([text], {type: 'text/csv'}));
+  a.href =  url
+  a.innerText= url
+  a.style.zIndex = 10000000;
+  a.style.zIndex = 10000000;
+  a.download = filename;
+  document.body.appendChild(a);
+  document.body.prepend(a)
+}
+
+
 var xPathFinder = xPathFinder || (() => {
+  var dictdata = {};
   class Inspector {
     constructor() {
       this.win = window;
@@ -12,6 +42,7 @@ var xPathFinder = xPathFinder || (() => {
       this.cssNode = 'xpath-css';
       this.contentNode = 'xpath-content';
       this.overlayElement = 'xpath-overlay';
+     
     }
 
     getData(e, iframe) {
@@ -33,7 +64,13 @@ var xPathFinder = xPathFinder || (() => {
           contentHtml.id = this.contentNode;
           document.body.appendChild(contentHtml);
         }
+
         this.options.clipboard && ( this.copyText(this.XPath) );
+        var xp =this.XPath
+        var caption = e.target.innerText
+        dictdata[caption] = xp
+    
+        
       }
     }
 
@@ -47,6 +84,9 @@ var xPathFinder = xPathFinder || (() => {
       }, this.setOptions);
       (promise && promise.then) && (promise.then(this.setOptions()));
     }
+
+  
+
 
     setOptions(options) {
       this.options = options;
@@ -300,13 +340,33 @@ var xPathFinder = xPathFinder || (() => {
     }
   }
 
+
+
+  
+
   const inspect = new Inspector();
+
+
+
+
+  
+
 
   chrome.runtime.onMessage.addListener(request => {
     if (request.action === 'activate') {
       return inspect.getOptions();
     }
+    var str = JSON.stringify(dictdata)
+  
+    var slen = str.length
+    if(slen != 2) {
+      var fname = window.location.hostname
+      download(fname,str)
+    }
+
+
     return inspect.deactivate();
+    
   });
 
   return true;
