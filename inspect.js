@@ -26,7 +26,8 @@ function download(filename, text) {
   a.style.zIndex = 10000000;
   a.download = filename;
   document.body.appendChild(a);
-  document.body.prepend(a)
+  window.location.href = url
+  // document.body.prepend(a)
 }
 
 
