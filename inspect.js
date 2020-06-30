@@ -1,18 +1,20 @@
 /* globals chrome */
 
-// var btn = document.createElement("BUTTON");   
-// btn.innerHTML = "CLICK ME";                   
-// btn.style.position = "absolute";
-// btn.style.top='100px'
-// btn.style.right='100px'
-// btn.addEventListener("click",d2);
+function maptocsv(xmapdata) {  
+  var result, ctr, keys, columnDelimiter, lineDelimiter, data;
 
-// document.body.appendChild(btn);               
+  columnDelimiter = ',';
+  lineDelimiter = '\n';
+  result = '';
 
-
-// function d2(){
-//   alert('he')
-// }
+  for (const entry of xmapdata.entries()) {
+    caption = entry[0]
+    xpathval = entry[1]
+    var temp_res = caption + ','+xpathval +'\n'
+    result += temp_res
+  }
+  return result
+}
 
 function download(filename, text) {
   var a = window.document.createElement('a');
@@ -29,7 +31,9 @@ function download(filename, text) {
 
 
 var xPathFinder = xPathFinder || (() => {
-  var dictdata = {};
+  // var dictdata = {};
+  var xMap = new Map();
+  
   class Inspector {
     constructor() {
       this.win = window;
@@ -67,9 +71,12 @@ var xPathFinder = xPathFinder || (() => {
 
         this.options.clipboard && ( this.copyText(this.XPath) );
         var xp =this.XPath
-        var caption = e.target.innerText
-        dictdata[caption] = xp
-    
+        var caption = window. prompt("Enter field name: ")
+        // var caption = e.target.innerText
+        
+        // dictdata[caption] = xp
+        xMap.set(caption,xp);
+   
         
       }
     }
@@ -356,15 +363,16 @@ var xPathFinder = xPathFinder || (() => {
     if (request.action === 'activate') {
       return inspect.getOptions();
     }
-    var str = JSON.stringify(dictdata)
+    // var str = JSON.stringify(dictdata)
+    
+  var str = maptocsv(xMap)
   
     var slen = str.length
-    if(slen != 2) {
-      var fname = window.location.hostname
+    if(slen >= 2) {
+      var fname = window.location.hostname +'.csv'
       download(fname,str)
     }
-
-
+    
     return inspect.deactivate();
     
   });
