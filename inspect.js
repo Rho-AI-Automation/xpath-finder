@@ -27,7 +27,7 @@ function download(filename, text) {
   a.download = filename;
   document.body.appendChild(a);
   window.location.href = url
-  // document.body.prepend(a)
+  document.body.prepend(a)
 }
 
 
@@ -77,6 +77,7 @@ var xPathFinder = xPathFinder || (() => {
         
         // dictdata[caption] = xp
         xMap.set(caption,xp);
+        e.target.style.color = '#FF0000';
    
         
       }
