@@ -7,12 +7,17 @@
   "icons": {
     "64": "icons/default-64.png"
   },
+  "web_accessible_resources": [
+    "assets/popup.html"
+  ],
+
   "background": {
     "scripts": ["background.js"]
   },
   "browser_action": {
     "default_icon": "icons/default-64.png",
     "default_title": "Click on any element to get the xPath"
+    
   },
   "content_scripts": [{
     "all_frames": true,

@@ -1,5 +1,42 @@
 /* globals chrome */
 
+function custominput(htex){
+  var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
+  win.document.body.innerHTML = htex;
+
+}
+
+
+
+function custombox(){
+  var furl = chrome.extension.getURL("assets/popup.html");
+  furl=furl
+
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    
+      custominput(xhttp.responseText)
+    }
+  };
+  xhttp.open("GET", furl, true);
+  xhttp.send();
+
+}
+
+custombox()
+
+
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------------------------------------------------
 function maptocsv(xmapdata) {  
   var result, ctr, keys, columnDelimiter, lineDelimiter, data;
 
@@ -72,7 +109,7 @@ var xPathFinder = xPathFinder || (() => {
 
         this.options.clipboard && ( this.copyText(this.XPath) );
         var xp =this.XPath
-        var caption = window. prompt("Enter field name: ")
+        var caption = window.prompt("Enter field name: ")
         // var caption = e.target.innerText
         
         // dictdata[caption] = xp
