@@ -35,7 +35,11 @@ function saveOptions(e) {
     clipboard: document.querySelector('#copy').checked,
     shortid: document.querySelector('#shortid').checked,
     position: document.querySelector('#position').value,
-    shortcut: document.querySelector('#shortcut').value
+    shortcut: document.querySelector('#shortcut').value,
+    // apikey: document.querySelector('#apikey').value,
+    // apiendpoint: document.querySelector('#apiendpoint').value
+
+
   }, () => {
     const status = document.querySelector('.status');
     status.textContent = 'Options saved.';
@@ -54,12 +58,17 @@ function restoreOptions() {
     shortid: true,
     position: 'bl',
     shortcut: 'U'
+    // apikey : 'noapikey',
+    // apiendpoint : 'noapiendbpoint'
+
   }, items => {
     document.querySelector('#inspector').checked = items.inspector;
     document.querySelector('#copy').checked = items.clipboard;
     document.querySelector('#shortid').checked = items.shortid;
     document.querySelector('#position').value = items.position;
     document.querySelector('#shortcut').value = items.shortcut;
+    // document.querySelector('#apikey').value = items.apikey;
+    // document.querySelector('#apiendpoint').value = items.apiendpoint;
   });
 }
 

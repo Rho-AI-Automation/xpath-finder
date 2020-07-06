@@ -1,14 +1,35 @@
 /* globals chrome */
 
-function custominput(htex){
-  var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
-  win.document.body.innerHTML = htex;
+
+
+function custominput(ihtex,idomain,ipageurl,ixpathtext){
+  // var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=200,modal=yes,top="+(screen.height-1000)+",left="+(screen.width-840));
+  var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=200,modal=yes,top="+(0)+",left="+(screen.width-840));
+  // var win = window.open('','name','height=255,width=250,toolbar=no,directories=no,status=no, linemenubar=no,scrollbars=no,resizable=no ,modal=yes');
+
+  win.document.body.innerHTML = ihtex;
+
+
+  var xpath =win.document.getElementById('xpath')
+  var domain =win.document.getElementById('domain')
+  var pageurl =win.document.getElementById('pageurl')
+  var fiedlname =win.document.getElementById('fiedlname')
+  
+  
+  xpath.value = ixpathtext
+  domain.value = idomain
+  pageurl.value = ipageurl
+  
+  
+  xpath.setAttribute("readonly", true);
+  domain.setAttribute("readonly", true);
+  pageurl.setAttribute("readonly", true);
 
 }
 
 
 
-function custombox(){
+function custombox(indomain,inpageurl,inxpathtext){
   var furl = chrome.extension.getURL("assets/popup.html");
   furl=furl
 
@@ -16,21 +37,13 @@ function custombox(){
 
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-    
-      custominput(xhttp.responseText)
+      custominput(ihtex=xhttp.responseText,indomain,inpageurl,inxpathtext)
     }
   };
   xhttp.open("GET", furl, true);
   xhttp.send();
 
 }
-
-custombox()
-
-
-
-
-
 
 
 
@@ -70,7 +83,7 @@ function download(filename, text) {
 
 var xPathFinder = xPathFinder || (() => {
   // var dictdata = {};
-  var xMap = new Map();
+  // var xMap = new Map();
   
   class Inspector {
     constructor() {
@@ -109,11 +122,14 @@ var xPathFinder = xPathFinder || (() => {
 
         this.options.clipboard && ( this.copyText(this.XPath) );
         var xp =this.XPath
-        var caption = window.prompt("Enter field name: ")
+        var domain = window.location.hostname
+        var pageurl = window.location.href
+        custombox(domain,pageurl,xp)
+        // var caption = window.prompt("Enter field name: ")
         // var caption = e.target.innerText
         
         // dictdata[caption] = xp
-        xMap.set(caption,xp);
+        // xMap.set(caption,xp);
         e.target.style.color = '#FF0000';
    
         
@@ -404,13 +420,13 @@ var xPathFinder = xPathFinder || (() => {
     }
     // var str = JSON.stringify(dictdata)
     
-  var str = maptocsv(xMap)
+  // var str = maptocsv(xMap)
   
-    var slen = str.length
-    if(slen >= 2) {
-      var fname = window.location.hostname +'.csv'
-      download(fname,str)
-    }
+  //   var slen = str.length
+  //   if(slen >= 2) {
+  //     var fname = window.location.hostname +'.csv'
+  //     download(fname,str)
+  //   }
     
     return inspect.deactivate();
     
