@@ -26,12 +26,17 @@ input, label {
 
 <h2>Xpath-Finder</h2>
 
-<form action="http:/15.206.122.223:8080/addxp" method="post" >
+<form id='form' action="" method="post" >
 
   <!-- filed for xpath which will be disabled -->
   <label name="xpath" for="xpath">xpath:</label>
   <input id="xpath" name="xpath" value="">
-  
+ 
+  <!-- filed for apikey which will be disabled -->
+  <label name="apikey" for="apikey">apikey:</label>
+  <input id="apikey" name="apikey" value=""> 
+
+
   <!-- filed for domain which will be disabled -->
   <label for="domain">Domain:</label>
   <input id="domain" name="domain" value="">
@@ -42,7 +47,7 @@ input, label {
 
   <!-- field for page url -->
   <label for="fieldname">Field name:</label>
-  <input id="fieldname" name="fieldname" value="">
+  <input id="fieldname" name="fieldname" autofocus value="">
     
 
   <!-- field for page url -->
@@ -60,10 +65,6 @@ input, label {
 
 
 </body>
-
-<script type="text/javascript" >
-  alert("hello")
-</script>
 
 
 

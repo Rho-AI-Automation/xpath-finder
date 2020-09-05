@@ -1,10 +1,10 @@
 /* globals chrome */
 
-
-
+var apikey = ''
+var apiendpoint = ''
 function custominput(ihtex,idomain,ipageurl,ixpathtext){
   // var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=200,modal=yes,top="+(screen.height-1000)+",left="+(screen.width-840));
-  var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=200,modal=yes,top="+(0)+",left="+(screen.width-840));
+  var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=300,modal=yes,top="+(0)+",left="+(screen.width-840));
   // var win = window.open('','name','height=255,width=250,toolbar=no,directories=no,status=no, linemenubar=no,scrollbars=no,resizable=no ,modal=yes');
 
   win.document.body.innerHTML = ihtex;
@@ -13,17 +13,21 @@ function custominput(ihtex,idomain,ipageurl,ixpathtext){
   var xpath =win.document.getElementById('xpath')
   var domain =win.document.getElementById('domain')
   var pageurl =win.document.getElementById('pageurl')
-  var fiedlname =win.document.getElementById('fiedlname')
-  
+  var papikey =win.document.getElementById('apikey')
+  var form =win.document.getElementById('form')
+  var fieldname =win.document.getElementById('fieldname')
   
   xpath.value = ixpathtext
   domain.value = idomain
   pageurl.value = ipageurl
-  
-  
+  papikey.value = apikey 
+  form.action=  apiendpoint
+
+
   xpath.setAttribute("readonly", true);
   domain.setAttribute("readonly", true);
   pageurl.setAttribute("readonly", true);
+  apikey.setAttribute("readonly", true);
 
 }
 
@@ -142,7 +146,9 @@ var xPathFinder = xPathFinder || (() => {
         inspector: true,
         clipboard: true,
         shortid: true,
-        position: 'bl'
+        position: 'bl',
+        apikey: 'apikey',
+        apiendpoint: 'apiendpoint'
       }, this.setOptions);
       (promise && promise.then) && (promise.then(this.setOptions()));
     }
@@ -152,6 +158,8 @@ var xPathFinder = xPathFinder || (() => {
 
     setOptions(options) {
       this.options = options;
+      apikey = options.apikey;
+      apiendpoint = options.apiendpoint;
       let position = 'bottom:0;left:0';
       switch (options.position) {
         case 'tl': position = 'top:0;left:0'; break;
