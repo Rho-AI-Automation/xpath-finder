@@ -4,16 +4,16 @@ var apikey = ''
 var apiendpoint = ''
 function custominput(ihtex,idomain,ipageurl,ixpathtext){
   // var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=200,modal=yes,top="+(screen.height-1000)+",left="+(screen.width-840));
-  var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=300,modal=yes,top="+(0)+",left="+(screen.width-840));
+  var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=436,height=481,modal=yes,top="+(0)+",left="+(screen.width-840));
   // var win = window.open('','name','height=255,width=250,toolbar=no,directories=no,status=no, linemenubar=no,scrollbars=no,resizable=no ,modal=yes');
 
   win.document.body.innerHTML = ihtex;
 
 
-  var xpath =win.document.getElementById('xpath')
+  var xpath =win.document.getElementById('xpth')
   var domain =win.document.getElementById('domain')
   var pageurl =win.document.getElementById('pageurl')
-  var papikey =win.document.getElementById('apikey')
+  var papikey =win.document.getElementById('apkikey')
   var form =win.document.getElementById('form')
   var fieldname =win.document.getElementById('fieldname')
   
@@ -21,13 +21,13 @@ function custominput(ihtex,idomain,ipageurl,ixpathtext){
   domain.value = idomain
   pageurl.value = ipageurl
   papikey.value = apikey 
-  form.action=  apiendpoint
+  form.action =  apiendpoint + '/addxp'
 
 
   xpath.setAttribute("readonly", true);
   domain.setAttribute("readonly", true);
   pageurl.setAttribute("readonly", true);
-  apikey.setAttribute("readonly", true);
+  papikey.setAttribute("readonly", true);
 
 }
 
@@ -36,7 +36,7 @@ function custominput(ihtex,idomain,ipageurl,ixpathtext){
 function custombox(indomain,inpageurl,inxpathtext){
   var furl = chrome.extension.getURL("assets/popup.html");
   furl=furl
-
+  var params = '?apitoken='+apikey+'&'+'xpath='+ inxpathtext + "&" + "inpageurl="+inpageurl
   var xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
@@ -44,8 +44,9 @@ function custombox(indomain,inpageurl,inxpathtext){
       custominput(ihtex=xhttp.responseText,indomain,inpageurl,inxpathtext)
     }
   };
-  xhttp.open("GET", furl, true);
-  xhttp.send();
+  //xhttp.open("GET", furl, true);
+  xhttp.open("GET",apiendpoint+'/returnpop'+ params, true);
+  xhttp.send(params);
 
 }
 
