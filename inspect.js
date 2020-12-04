@@ -2,32 +2,35 @@
 
 var apikey = ''
 var apiendpoint = ''
-function custominput(ihtex,idomain,ipageurl,ixpathtext){
+var connector = ''
+
+
+function custominput(apilink,ihtex,idomain,ipageurl,ixpathtext){
   // var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=200,modal=yes,top="+(screen.height-1000)+",left="+(screen.width-840));
-  var win = window.open("", "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=436,height=481,modal=yes,top="+(0)+",left="+(screen.width-840));
+
+  apilink = apilink + "&xpath="+ixpathtext+"&domain="+idomain+"&pageurl="+ipageurl
+  var win = window.open(apilink, "Title", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=436,height=620,modal=yes,top="+(0)+",left="+(screen.width-840));
   // var win = window.open('','name','height=255,width=250,toolbar=no,directories=no,status=no, linemenubar=no,scrollbars=no,resizable=no ,modal=yes');
 
-  win.document.body.innerHTML = ihtex;
+  //win.document.body.innerHTML = ihtex;
 
-
-  var xpath =win.document.getElementById('xpth')
-  var domain =win.document.getElementById('domain')
-  var pageurl =win.document.getElementById('pageurl')
-  var papikey =win.document.getElementById('apkikey')
-  var form =win.document.getElementById('form')
-  var fieldname =win.document.getElementById('fieldname')
+  //var xpath =win.document.getElementById('xpth')
+  //var domain =win.document.getElementById('domain')
+  //var pageurl =win.document.getElementById('pageurl')
+  //var papikey =win.document.getElementById('apkikey')
+  //var form =win.document.getElementById('form')
   
-  xpath.value = ixpathtext
-  domain.value = idomain
-  pageurl.value = ipageurl
-  papikey.value = apikey 
-  form.action =  apiendpoint + '/addxp'
+  //xpath.value = ixpathtext
+  //domain.value = idomain
+  //pageurl.value = ipageurl
+  //papikey.value = apikey 
+  //form.action =  apiendpoint + '/addxp'
 
 
-  xpath.setAttribute("readonly", true);
-  domain.setAttribute("readonly", true);
-  pageurl.setAttribute("readonly", true);
-  papikey.setAttribute("readonly", true);
+  //xpath.setAttribute("readonly", true);
+  //domain.setAttribute("readonly", true);
+  //pageurl.setAttribute("readonly", true);
+  //papikey.setAttribute("readonly", true);
 
 }
 
@@ -39,14 +42,15 @@ function custombox(indomain,inpageurl,inxpathtext){
   var params = '?apitoken='+apikey+'&'+'xpath='+ inxpathtext + "&" + "inpageurl="+inpageurl
   var xhttp = new XMLHttpRequest();
 
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      custominput(ihtex=xhttp.responseText,indomain,inpageurl,inxpathtext)
-    }
-  };
+  custominput(apiendpoint+'/returnpop'+ params,ihtex=xhttp.responseText,indomain,inpageurl,inxpathtext)
+  //xhttp.onreadystatechange = function() {
+  //  if (this.readyState == 4 && this.status == 200) {
+  //    custominput(apiendpoint+'/returnpop'+ params,ihtex=xhttp.responseText,indomain,inpageurl,inxpathtext)
+  //  }
+  //};
   //xhttp.open("GET", furl, true);
-  xhttp.open("GET",apiendpoint+'/returnpop'+ params, true);
-  xhttp.send(params);
+  //xhttp.open("GET",apiendpoint+'/returnpop'+ params, true);
+  //xhttp.send(params);
 
 }
 
