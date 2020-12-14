@@ -39,7 +39,7 @@ function custominput(apilink,ihtex,idomain,ipageurl,ixpathtext){
 function custombox(indomain,inpageurl,inxpathtext){
   var furl = chrome.extension.getURL("assets/popup.html");
   furl=furl
-  var params = '?apitoken='+apikey+'&'+'xpath='+ inxpathtext + "&" + "inpageurl="+inpageurl
+  var params = '?apitoken='+apikey+'&'+'xpath='+ inxpathtext + "&" + "inpageurl="+ encodeURIComponent(inpageurl)
   var xhttp = new XMLHttpRequest();
 
   custominput(apiendpoint+'/returnpop'+ params,ihtex=xhttp.responseText,indomain,inpageurl,inxpathtext)
